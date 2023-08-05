@@ -57,6 +57,16 @@ def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
 
     return losses.avg
 
+
+def generate_biomarkers(bio_tensor):
+    """Generate biomarkers from the given bio_tensor."""
+    biomarkers = []
+    for bio in bio_tensor:
+        biomarker = bio.squeeze().detach().cpu().numpy()
+        biomarkers.append(biomarker)
+    return biomarkers
+
+
 def submission_generate(val_loader, model, opt):
     """validation"""
     model.eval()
@@ -64,7 +74,7 @@ def submission_generate(val_loader, model, opt):
     device = opt.device
     out_list = []
     with torch.no_grad():
-        for idx, (image,bio_tensor) in (enumerate(val_loader)):
+        for idx, (image, bio_tensor) in enumerate(val_loader, 0):
 
             images = image.float().to(device)
 
@@ -73,9 +83,14 @@ def submission_generate(val_loader, model, opt):
             output = torch.round(torch.sigmoid(output))
             out_list.append(output.squeeze().detach().cpu().numpy())
 
+            # generate biomarkers
+            biomarkers = generate_biomarkers(bio_tensor)
+
 
     out_submisison = np.array(out_list)
-    np.save('output',out_submisison)
+    np.save('output', out_submisison)
+    biomarkers_file = 'biomarkers.npy'
+    np.save(biomarkers_file, biomarkers)
 
 
 def sample_evaluation(val_loader, model, opt):
