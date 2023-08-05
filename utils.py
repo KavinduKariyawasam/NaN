@@ -65,7 +65,7 @@ def set_loader(opt):
         data_path_train = opt.train_image_path
         data_path_test = opt.test_image_path
         train_dataset = OLIVES(csv_path_train,data_path_train,transforms = train_transform)
-        test_dataset = RECOVERY_TEST(csv_path_test,data_path_test,transforms = val_transform)
+        test_dataset = RECOVERY(csv_path_test,data_path_test,transforms = val_transform)
     else:
         raise ValueError(opt.dataset)
 
