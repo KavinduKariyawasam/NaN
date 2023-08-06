@@ -52,8 +52,8 @@ def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
         batch_time.update(time.time() - end)
         end = time.time()
 
-        label_list.append(labels.squeeze().detach().cpu().numpy())
-        output_list.append(output.squeeze().detach().cpu().numpy())
+        label_list.append(np.round(labels.squeeze().detach().cpu().numpy()))
+        output_list.append(np.round(output.squeeze().detach().cpu().numpy()))
         
         # print info
         if (idx + 1) % opt.print_freq == 0:
