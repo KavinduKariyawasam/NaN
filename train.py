@@ -7,7 +7,7 @@ from sklearn.metrics import f1_score
 from config import parse_option
 import os
 from utils import set_loader, set_model, set_optimizer, adjust_learning_rate
-
+import matplotlib.pyplot as plt
 
 def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
     """one epoch training"""
@@ -116,12 +116,15 @@ def main():
 
     # build optimizer
     optimizer = set_optimizer(opt, model)
-
-
+    
+    losses = []
     # training routine
     for epoch in range(1, opt.epochs + 1):
-        train_supervised(train_loader, model, criterion, optimizer, epoch, opt)
+        avg_loss = train_supervised(train_loader, model, criterion, optimizer, epoch, opt)
+        losses.append(avg_loss)
 
+    plt.plot(losses)
+    plt.show()
     submission_generate(test_loader, model, opt)
     #sample_evaluation(test_loader, model, opt)
 
