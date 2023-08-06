@@ -23,8 +23,6 @@ def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
     output_list = []
     label_list = []
     for idx, (image, bio_tensor) in enumerate(train_loader):
-        if idx == 2:
-            break
         data_time.update(time.time() - end)
 
         images = image.to(device)
@@ -67,7 +65,6 @@ def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
     label_array = np.concatenate(label_list,axis = 0)
     output_array = np.concatenate(output_list,axis = 0)
 
-    print(label_array.shape)
     f = f1_score(label_array.astype(int),output_array.astype(int),average='macro')
     print(f"Epoch: {epoch}, Loss: {losses.avg:.4f}, F1 Score: {f:.4f}")
     
