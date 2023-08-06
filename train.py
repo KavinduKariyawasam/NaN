@@ -23,6 +23,8 @@ def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
     output_list = []
     label_list = []
     for idx, (image, bio_tensor) in enumerate(train_loader):
+        if idx == 2:
+            break
         data_time.update(time.time() - end)
 
         images = image.to(device)
