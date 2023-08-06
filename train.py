@@ -52,6 +52,7 @@ def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
         batch_time.update(time.time() - end)
         end = time.time()
 
+        #newly added
         label_list.append(labels.squeeze().detach().cpu().numpy())
         output_list.append(((torch.sigmoid(output)>=0.5)*1).squeeze().detach().cpu().numpy())
         
@@ -62,7 +63,7 @@ def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
 
             sys.stdout.flush()
 
-    
+    #f1 score for training set
     #print(label_list)        
     label_array = np.concatenate(label_list,axis = 0)
     output_array = np.concatenate(output_list,axis = 0)
@@ -139,6 +140,8 @@ def main():
         avg_loss = train_supervised(train_loader, model, criterion, optimizer, epoch, opt)
         losses.append(avg_loss)
 
+    #loss curve generation
+    
     plt.figure(figsize=(10,10))
     plt.plot(losses)
     plt.savefig('/kaggle/working/loss_curve.png')
