@@ -126,7 +126,8 @@ def main():
     print(losses)
     plt.figure(figsize=(10,10))
     plt.plot(losses)
-    plt.show()
+    plt.savefig('/kaggle/working/loss_curve.png')
+    
     submission_generate(test_loader, model, opt)
     #sample_evaluation(test_loader, model, opt)
 
