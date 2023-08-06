@@ -64,8 +64,8 @@ def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
 
     
     #print(label_list)        
-    label_array = np.array(label_list)
-    output_array = np.array(output_list)
+    label_array = np.concatenate(label_list,axis = 0)
+    output_array = np.concatenate(output_list,axis = 0)
 
     print(label_array.shape)
     f = f1_score(label_array,output_array,average='macro')
