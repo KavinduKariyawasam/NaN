@@ -20,6 +20,8 @@ def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
     device = opt.device
     end = time.time()
 
+    output_list = []
+    label_list = []
     for idx, (image, bio_tensor) in enumerate(train_loader):
         data_time.update(time.time() - end)
 
@@ -48,13 +50,21 @@ def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
         batch_time.update(time.time() - end)
         end = time.time()
 
+        label_list.append(labels.squeeze().detach().cpu().numpy())
+        output_list.append(output.squeeze().detach().cpu().numpy())
+        
         # print info
         if (idx + 1) % opt.print_freq == 0:
             print('Train: [{0}][{1}/{2}]\t'.format(
                 epoch, idx + 1, len(train_loader)))
 
             sys.stdout.flush()
-
+            
+    label_array = np.array(label_list)
+    output_array = np.array(output_list)
+    f = f1_score(label_array,output_array,average='macro')
+    print(f"Epoch: {epoch}, Loss: {losses.avg:.4f}, F1 Score: {f:.4f}")
+    
     return losses.avg
 
 def submission_generate(val_loader, model, opt):
@@ -123,7 +133,6 @@ def main():
         avg_loss = train_supervised(train_loader, model, criterion, optimizer, epoch, opt)
         losses.append(avg_loss)
 
-    print(losses)
     plt.figure(figsize=(10,10))
     plt.plot(losses)
     plt.savefig('/kaggle/working/loss_curve.png')
