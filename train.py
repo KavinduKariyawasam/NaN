@@ -123,6 +123,7 @@ def main():
         avg_loss = train_supervised(train_loader, model, criterion, optimizer, epoch, opt)
         losses.append(avg_loss)
 
+    print(losses)
     plt.plot(losses)
     plt.show()
     submission_generate(test_loader, model, opt)
