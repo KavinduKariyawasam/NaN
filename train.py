@@ -124,6 +124,7 @@ def main():
         losses.append(avg_loss)
 
     print(losses)
+    plt.figure(figsize=(10,10))
     plt.plot(losses)
     plt.show()
     submission_generate(test_loader, model, opt)
