@@ -61,9 +61,13 @@ def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
                 epoch, idx + 1, len(train_loader)))
 
             sys.stdout.flush()
-    print(label_list)        
+
+    
+    #print(label_list)        
     label_array = np.array(label_list)
     output_array = np.array(output_list)
+
+    print(label_array.shape)
     f = f1_score(label_array,output_array,average='macro')
     print(f"Epoch: {epoch}, Loss: {losses.avg:.4f}, F1 Score: {f:.4f}")
     
