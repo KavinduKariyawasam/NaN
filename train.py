@@ -40,7 +40,7 @@ def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
         output = model(images)
         loss = criterion(output, labels)
 
-        print(torch.sigmoid(output))
+        print((torch.sigmoid(output)>=0.5)*1)
         # update metric
         losses.update(loss.item(), bsz)
 
