@@ -64,6 +64,11 @@ def set_loader(opt):
         csv_path_test = opt.test_csv_path
         data_path_train = opt.train_image_path
         data_path_test = opt.test_image_path
+
+        csv_path_valid = '/kaggle/input/new-csv/validation_biomakers.csv'                   #validation
+        data_path_valid = 'train_image_path'
+        val_dataset = OLIVES(csv_path_valid,data_path_valid,transforms = val_transform)
+        
         train_dataset = OLIVES(csv_path_train,data_path_train,transforms = train_transform)
         test_dataset = RECOVERY(csv_path_test,data_path_test,transforms = val_transform)
     else:
@@ -77,7 +82,12 @@ def set_loader(opt):
         test_dataset, batch_size=1, shuffle=False,
         num_workers=0, pin_memory=True,drop_last=False)
 
-    return train_loader, test_loader
+    #val_loader
+    val_loader = torch.utils.data.DataLoader(
+        val_dataset, batch_size=1, shuffle=False,
+        num_workers=0, pin_memory=True,drop_last=False)
+
+    return train_loader, test_loader, val_loader
 
 
 
