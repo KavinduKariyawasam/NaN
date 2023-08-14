@@ -66,7 +66,7 @@ def set_loader(opt):
         data_path_test = opt.test_image_path
 
         csv_path_valid = '/kaggle/input/new-csv/validation_biomakers.csv'                   #validation
-        data_path_valid = 'train_image_path'
+        data_path_valid = opt.train_image_path
         val_dataset = OLIVES(csv_path_valid,data_path_valid,transforms = val_transform)
         
         train_dataset = OLIVES(csv_path_train,data_path_train,transforms = train_transform)
