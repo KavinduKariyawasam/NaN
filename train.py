@@ -9,7 +9,7 @@ import os
 from utils import set_loader, set_model, set_optimizer, adjust_learning_rate
 import matplotlib.pyplot as plt
 
-def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
+def train_supervised(val_loader,train_loader, model,criterion, optimizer, epoch, opt):
     """one epoch training"""
     model.train()
 
@@ -138,7 +138,7 @@ def main():
     losses = []
     # training routine
     for epoch in range(1, opt.epochs + 1):
-        avg_loss = train_supervised(train_loader, model, criterion, optimizer, epoch, opt)
+        avg_loss = train_supervised(val_loader,train_loader, model, criterion, optimizer, epoch, opt)
         losses.append(avg_loss)
 
     #loss curve generation
