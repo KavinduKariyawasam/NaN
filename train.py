@@ -68,6 +68,7 @@ def train_supervised(train_loader, model,criterion, optimizer, epoch, opt):
     label_array = np.concatenate(label_list,axis = 0)
     output_array = np.concatenate(output_list,axis = 0)
     
+    sample_evaluation(val_loader, model, opt)
     #print(label_array.shape , output_array.shape)
     f = f1_score(label_array.astype(int),output_array.astype(int),average='macro')
     print(f"Epoch: {epoch}, Loss: {losses.avg:.4f}, F1 Score: {f:.4f}")
@@ -147,7 +148,7 @@ def main():
     plt.savefig('/kaggle/working/loss_curve.png')
     
     submission_generate(test_loader, model, opt)
-    sample_evaluation(val_loader, model, opt)
+    #sample_evaluation(val_loader, model, opt)
 
     save_file = os.path.join(
         opt.save_folder, 'last.pth')
