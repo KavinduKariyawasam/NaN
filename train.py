@@ -126,7 +126,7 @@ def main():
     opt = parse_option()
 
     # build data loader
-    train_loader,test_loader = set_loader(opt)
+    train_loader,test_loader,val_loader = set_loader(opt)      #edited
 
     # build model and criterion
     model, criterion = set_model(opt)
@@ -147,7 +147,7 @@ def main():
     plt.savefig('/kaggle/working/loss_curve.png')
     
     submission_generate(test_loader, model, opt)
-    #sample_evaluation(test_loader, model, opt)
+    sample_evaluation(val_loader, model, opt)
 
     save_file = os.path.join(
         opt.save_folder, 'last.pth')
