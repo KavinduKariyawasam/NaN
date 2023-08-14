@@ -120,7 +120,7 @@ def sample_evaluation(val_loader, model, opt):
     label_array = np.array(label_list)
     out_array = np.array(out_list)
     f = f1_score(label_array,out_array,average='macro')
-    print(f"F1 score for validation: {f})
+    print(F1 score for validation: {f})
 
 
 def main():
